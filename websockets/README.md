@@ -21,7 +21,7 @@ kubectl apply -f ./workload.yaml
 
 ## Connect
 
-Open browser to [http://localhost:80].
+Open browser to [http://localhost:80](http://localhost:80).
 
 In console:
 
