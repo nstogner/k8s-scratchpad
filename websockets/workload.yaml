@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wsapp
+  labels:
+    app: wsapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wsapp
+  template:
+    metadata:
+      labels:
+        app: wsapp
+    spec:
+      containers:
+      - name: wsapp
+        image: wsapp:v1
+        env:
+          - name: abc
+            value: "xyz"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wsapp
+  labels:
+    app: wsapp
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    #  sessionAffinity: ClientIP
+  selector:
+    app: wsapp
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wsapp
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: wsapp
+              servicePort: 80

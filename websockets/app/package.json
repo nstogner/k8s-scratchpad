@@ -1,0 +1,15 @@
+{
+  "name": "wsapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "ws": "^7.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1;"
+  },
+  "author": "Nick Stogner",
+  "license": "MIT"
+}
