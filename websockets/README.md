@@ -23,7 +23,7 @@ kubectl apply -f ./workload.yaml
 
 Open browser to [http://localhost:80](http://localhost:80).
 
-In console:
+In browser console:
 
 ```js
 myws = new WebSocket("ws://localhost:80")
