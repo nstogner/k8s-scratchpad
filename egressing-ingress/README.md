@@ -17,7 +17,7 @@ kubectl apply -f ./httpbin.yaml
 
 ## Connect
 
-Open browser to [http://localhost:80/get].
+Open browser to (http://localhost:80/get).
 
 ## References
 
