@@ -6,7 +6,7 @@ Setup an ingress controller to send traffic to a Service of type ExternalName.
 
 ```sh
 # Create cluster
-kind create cluster --config=./kind.yaml
+kind create cluster --config=./kind.yaml --name egressing-ingress
 
 # Deploy NGINX Ingress controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
@@ -18,6 +18,12 @@ kubectl apply -f ./httpbin.yaml
 ## Connect
 
 Open browser to http://localhost:80/get
+
+## Cleanup
+
+```sh
+kind delete cluster --name egressing-ingress
+```
 
 ## References
 
