@@ -7,6 +7,9 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: https
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+      - foo.com
   rules:
   - host: foo.com
     http:
