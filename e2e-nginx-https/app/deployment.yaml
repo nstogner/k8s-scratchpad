@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: nstogner/hello-go-api:01a5b0b1
+        image: nstogner/hello-go-api:01a5b0b1 # https://github.com/nstogner/hello-go-api
         ports:
         - containerPort: 8443
         env:
