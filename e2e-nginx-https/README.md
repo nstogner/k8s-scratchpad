@@ -85,3 +85,19 @@ Note the certificate information (the certificate served by the app includes `L=
 *  subject: C=US; ST=California; L=San Appsisco; O=Foo; OU=Foo Devs; CN=foo.com
 ```
 
+## Performance
+
+Performance results can be seen in `perf/`. They were generated with [vegeta](https://github.com/tsenart/vegeta).
+
+```sh
+echo "GET https://foo.com" | vegeta attack --duration=5s --insecure | tee results.bin | vegeta report
+```
+
+## Notes
+
+The Helm chart for NGINX can be installed with the following flag to enable SSL passthrough.
+
+```
+--set controller.extraArgs.enable-ssl-passthrough=""
+```
+
