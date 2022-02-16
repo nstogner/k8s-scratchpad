@@ -2,13 +2,15 @@
 
 ## Deploy
 
-Create a local cluster.
+Create a local cluster using [kind](https://kind.sigs.k8s.io/).
 
 ```sh
-# Create cluster
 kind create cluster --config=./kind.yaml
+```
 
-# Deploy NGINX Ingress controller
+Deploy the NGINX Ingress controller.
+
+```sh
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
 ```
 
@@ -58,10 +60,8 @@ curl --cacert ./ssl/ca.crt -v https://foo.com
 Note the certificate information (the certificate served by NGINX includes `L=San Nginxisco`):
 
 ```
-...
 * Server certificate:
 *  subject: C=US; ST=California; L=San Nginxisco; O=Foo; OU=Foo Devs; CN=foo.com
-...
 ```
 
 ### Configuration 2: Single Termination (SSL Passthrough)
