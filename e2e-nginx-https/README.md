@@ -1,4 +1,4 @@
-# End-to-End Client-->NGINX-->App HTTPS
+# End to End HTTPS: Client --> NGINX --> App
 
 ## Deploy
 
