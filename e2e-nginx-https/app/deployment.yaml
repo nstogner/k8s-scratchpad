@@ -20,5 +20,17 @@ spec:
         env:
           - name: HTTPS
             value: "true"
+          - name: KEY
+            value: "/etc/secrets/tls/tls.key"
+          - name: CERT
+            value: "/etc/secrets/tls/tls.crt"
           - name: ADDR
             value: ":8443"
+        volumeMounts:
+          - name: tls
+            mountPath: "/etc/secrets/tls"
+      volumes:
+        - name: tls
+          secret:
+            secretName: app-tls
+

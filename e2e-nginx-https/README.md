@@ -12,6 +12,13 @@ kind create cluster --config=./kind.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
 ```
 
+Upload certificates to Kubernetes.
+
+```sh
+kubectl apply -f ./ssl/app-tls.yaml
+kubectl apply -f ./ssl/nginx-tls.yaml
+```
+
 Deploy the app.
 
 ```sh
@@ -45,18 +52,16 @@ kubectl apply -f ./app/ingress-ssl-termination.yaml
 Curl the service.
 
 ```sh
-curl -vk https://foo.com
+curl --cacert ./ssl/ca.crt -v https://foo.com
 ```
 
-Note the certificate information (the default certificate served by the NGINX ingress controller):
+Note the certificate information (the certificate served by NGINX includes `L=San Nginxisco`):
 
 ```
+...
 * Server certificate:
-*  subject: O=Acme Co; CN=Kubernetes Ingress Controller Fake Certificate
-*  start date: Feb 11 20:03:59 2022 GMT
-*  expire date: Feb 11 20:03:59 2023 GMT
-*  issuer: O=Acme Co; CN=Kubernetes Ingress Controller Fake Certificate
-*  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+*  subject: C=US; ST=California; L=San Nginxisco; O=Foo; OU=Foo Devs; CN=foo.com
+...
 ```
 
 ### Configuration 2: Single Termination (SSL Passthrough)
@@ -70,17 +75,13 @@ kubectl apply -f ./app/ingress-ssl-passthrough.yaml
 Curl the service.
 
 ```sh
-curl -vk https://foo.com
+curl --cacert ./ssl/ca.crt -v https://foo.com
 ```
 
-Note the certificate information (the certificate served by the service - a self-signed cert which is baked into the app's container image):
+Note the certificate information (the certificate served by the app includes `L=San Appsisco`):
 
 ```
 * Server certificate:
-*  subject: C=US; ST=NC; L=Raleigh; O=NA; OU=NA; CN=hello-go-api
-*  start date: Feb 11 18:51:51 2022 GMT
-*  expire date: Feb  9 18:51:51 2032 GMT
-*  issuer: C=US; ST=NC; L=Raleigh; O=NA; OU=NA; CN=hello-go-api
-*  SSL certificate verify result: self signed certificate (18), continuing anyway.
+*  subject: C=US; ST=California; L=San Appsisco; O=Foo; OU=Foo Devs; CN=foo.com
 ```
 
