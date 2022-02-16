@@ -45,6 +45,10 @@ Add `foo.com` to `/etc/hosts`:
 
 ### Configuration 1: Double Termination
 
+```
+Client--(SSL Term)NGINX-->(SSL Term)App
+```
+
 In this configuration, SSL is terminated at NGINX which re-establishes a HTTPS request to the service.
 
 ```sh
@@ -65,6 +69,10 @@ Note the certificate information (the certificate served by NGINX includes `L=Sa
 ```
 
 ### Configuration 2: Single Termination (SSL Passthrough)
+
+```
+Client--NGINX-->(SSL Term)App
+```
 
 In this configuration SSL is only terminated at the service.
 
