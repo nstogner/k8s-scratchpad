@@ -1,4 +1,4 @@
-# E2E NGINX to Service HTTPS
+# End-to-End Client-->NGINX-->App HTTPS
 
 ## Deploy
 
