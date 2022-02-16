@@ -90,7 +90,7 @@ Note the certificate information (the certificate served by the app includes `L=
 Performance results can be seen in `perf/`. They were generated with [vegeta](https://github.com/tsenart/vegeta).
 
 ```sh
-echo "GET https://foo.com" | vegeta attack --duration=5s --insecure | tee results.bin | vegeta report
+echo "GET https://foo.com" | vegeta attack --duration=5s --root-certs ./ssl/ca.crt | tee results.bin | vegeta report
 ```
 
 ## Notes

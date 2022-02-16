@@ -1,8 +1,9 @@
-Requests      [total, rate, throughput]         250, 50.20, 50.17
-Duration      [total, attack, wait]             4.983s, 4.98s, 2.995ms
-Latencies     [min, mean, 50, 90, 95, 99, max]  2.61ms, 4.682ms, 4.365ms, 6.282ms, 7.447ms, 14.184ms, 16.883ms
-Bytes In      [total, mean]                     4750, 19.00
+Requests      [total, rate, throughput]         250, 50.23, 0.00
+Duration      [total, attack, wait]             4.984s, 4.977s, 6.422ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.402ms, 7.282ms, 6.763ms, 9.008ms, 10.568ms, 15.008ms, 17.107ms
+Bytes In      [total, mean]                     0, 0.00
 Bytes Out     [total, mean]                     0, 0.00
-Success       [ratio]                           100.00%
-Status Codes  [code:count]                      200:250  
+Success       [ratio]                           0.00%
+Status Codes  [code:count]                      0:250  
 Error Set:
+Get "https://foo.com": x509: certificate relies on legacy Common Name field, use SANs or temporarily enable Common Name matching with GODEBUG=x509ignoreCN=0
