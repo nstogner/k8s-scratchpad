@@ -1,0 +1,72 @@
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeBackendService
+metadata:
+  name: https-redirect-empty-backend-foo
+spec:
+  loadBalancingScheme: INTERNAL_MANAGED
+  location: us-central1
+  protocol: HTTP
+  logConfig:
+    enable: false
+---
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeURLMap
+metadata:
+  name: https-redirect-foo
+spec:
+  location: us-central1
+  defaultService:
+    backendServiceRef:
+      name: https-redirect-empty-backend-foo
+  hostRule:
+    - hosts:
+        - "*"
+      pathMatcher: "all"
+  pathMatcher:
+    - name: "all"
+      defaultUrlRedirect:
+        hostRedirect: example.com:443
+        pathRedirect: /
+        redirectResponseCode: PERMANENT_REDIRECT
+        httpsRedirect: true
+        stripQuery: false
+---
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeTargetHTTPProxy
+metadata:
+  name: https-redirect-proxy-foo
+spec:
+  proxyBind: true
+  location: us-central1
+  urlMapRef:
+    name: https-redirect-foo
+---
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeAddress
+metadata:
+  name: foo-ilb
+spec:
+  addressType: INTERNAL
+  location: us-central1
+  purpose: SHARED_LOADBALANCER_VIP
+  ipVersion: IPV4
+  subnetworkRef:
+    external: https://www.googleapis.com/compute/v1/projects/my-project/regions/us-central1/subnetworks/default
+---
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeForwardingRule
+metadata:
+  name: https-redirect-foo
+spec:
+  loadBalancingScheme: INTERNAL_MANAGED
+  ipAddress:
+    addressRef:
+      name: foo-ilb
+  target:
+    targetHTTPProxyRef:
+      name: https-redirect-proxy-foo
+  networkRef:
+    external: https://www.googleapis.com/compute/v1/projects/my-project/global/networks/default
+  location: us-central1
+  portRange: "80"
+  ipProtocol: "TCP"

@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ing
+  namespace: default
+  annotations:
+    ingress.gcp.kubernetes.io/pre-shared-cert: "foo-cert" # Needs to be created out-of-band.
+    kubernetes.io/ingress.class: "gce-internal"
+    kubernetes.io/ingress.allow-http: "false"
+    kubernetes.io/ingress.regional-static-ip-name: "foo-ilb"
+spec:
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: http-svc
+            port: 
+              number: 80
