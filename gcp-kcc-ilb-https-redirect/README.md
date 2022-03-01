@@ -6,7 +6,7 @@ Use [Config Connector](https://cloud.google.com/config-connector/docs/overview) 
 
 ## Guide
 
-Create a GKE Cluster with Config Connector enabled.
+Create a GKE Cluster with Config Connector enabled. (NOTE: Config Connector version must be > `1.74.0`).
 
 Create a [self-managed ssl certificate](https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs) named `foo-cert`.
 
